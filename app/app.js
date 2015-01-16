@@ -10,3 +10,32 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]);
+
+demoApp.controller('SimpleController', function($scope){
+    $scope.customers = [
+    {name: 'John Smith', city: 'Phoenix'},
+    {name: 'John Doe', city: 'New York'}
+    ];
+
+    $scope.addCustomer = function(){
+        $scope.customers.push(
+            {name: $scope.newCustomer.name, 
+             city: $scope.newCustomer.city
+         });
+    };
+});
+
+demoApp.config(function($routeProvider){
+    $routeProvider
+        .when('/',
+        {
+            controller: 'SimpleController',
+            templateUrl: 'Partials/View1.html'
+        })
+        .when('/partial2',
+        {
+            controller: 'SimpleController',
+            templateUrl: 'Partials/View2.html'
+        })
+        .otherwise({ redirectTo:'/'});
+});
